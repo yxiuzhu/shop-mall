@@ -115,36 +115,38 @@ export default {
         this.show = true;
       }
     },
-    // 路由的编程式导航 + 自定义属性
+    // 更优：路由的编程式导航 + 自定义属性
+    // 声明式导航会一次性产生大量路由实例，造成页面卡顿
     goSearch(event) {
       // 获取点击的标签
       // console.log(event.target)
       let element = event.target;
+      console.log(element.dataset);
       // 使用对象的解构获取信息
       let { categoryname, category1id, category2id, category3id } =
         element.dataset;
-      // 用自定义属性确定点击的是a标签
-      if (categoryname) {
-        // 整理路由跳转的参数
-        let location = { name: "search" };
-        let query = { categoryName: categoryname };
-        // 用自定义属性确定点击的是一级、二级、三级分类的a标签
-        if (category1id) {
-          query.category1Id = category1id;
-        } else if (category2id) {
-          query.category2Id = category2id;
-        } else {
-          query.category3Id = category3id;
-        }
+      // //给a标签添加自定义属性data-categoryName,全部的字标签当中只有a标签带有自定义属性
+      // 整理路由跳转的参数
+      let location = { name: "search" };
+      let query = { categoryName: categoryname };
+      // 用自定义属性确定点击的是一级、二级、三级分类的a标签
+      if (category1id) {
+        query.category1Id = category1id;
+      } else if (category2id) {
+        query.category2Id = category2id;
+      } else {
+        query.category3Id = category3id;
+      }
 
-        // 判断:如果路由跳转的时候，带有params参数，需要加上search组件输入的params内容
-        if (this.$route.params) {
-          location.params = this.$route.params
-          // 动态给location配置对象添加上typeNav组件整理完的query属性
-          location.query = query
-          // 路由跳转
-          this.$router.push(location)
-        }
+      // 判断:如果路由跳转的时候，带有params参数，需要加上search组件输入的params内容
+      // 实现点三级联动还是搜索都带上query参数和params参数
+
+      if (this.$route.params) {
+        location.params = this.$route.params;
+        // 动态给location配置对象添加上typeNav组件整理完的query属性
+        location.query = query;
+        // 路由跳转
+        this.$router.push(location);
       }
     },
   },

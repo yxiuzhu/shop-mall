@@ -75,6 +75,7 @@ export default {
       //     keyword: this.keyword || undefined,
       //   },
       // });
+      // 实现点三级联动还是搜索都带上query参数和params参数
       if (this.$route.query) {
         let location = {
           name: "search",
@@ -84,6 +85,12 @@ export default {
         this.$router.push(location);
       }
     },
+  },
+  mounted() {
+    //通过全局事件总线清除关键字
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
   },
 };
 </script>

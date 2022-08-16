@@ -17,7 +17,7 @@ export default {
     Footer,
   },
   mounted() {
-    // 请求数据
+    // 根组件请求数据
     this.$store.dispatch("categoryList");
   },
 };

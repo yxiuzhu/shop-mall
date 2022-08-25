@@ -3,7 +3,11 @@ import App from './App.vue'
 
 // 注册全局组件
 import TypeNav from '@/components/TypeNav'
+import Carsousel from "@/components/Carousel";
+// import Pagination from '@/components/Pagination'
+//全局组件：第一个参数 组件名字  第二个参数：那个组件
 Vue.component(TypeNav.name, TypeNav)
+Vue.component(Carsousel.name, Carsousel);
 
 // 引入MockServer.js的mock数据
 import '@/mock/mockServe'

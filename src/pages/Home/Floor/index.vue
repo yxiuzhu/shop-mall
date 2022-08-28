@@ -28,7 +28,7 @@
             </div>
             <div class="floorBanner">
               <!-- 轮播图的地方 -->
-              <Carousel></Carousel>
+              <Carousel :list="list.carouselList"></Carousel>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -59,28 +59,11 @@
 </template>
 
 <script type='text/ecmascript-6'>
-// 引入轮播图的swiper库
-import Swiper from "swiper";
 
 export default {
   name: "Floor",
   props: ["list"],
-  mounted() {
-    var mySwiper = new Swiper(this.$refs.floorSwiper, {
-      loop: true,
-      // 如果需要分页器
-      pagination: {
-        el: ".swiper-pagination",
-        //点击小球的时候也切换图片
-        clickable: true,
-      },
-      // 如果需要前进后退按钮
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  },
+  mounted() {},
 };
 </script>
 

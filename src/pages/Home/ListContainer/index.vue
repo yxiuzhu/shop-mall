@@ -2,24 +2,8 @@
   <div class="list-container">
     <div class="sortList clearfix">
       <div class="center">
-        <!--banner轮播-->
-        <div class="swiper-container" ref="mySwiper">
-          <div class="swiper-wrapper">
-            <div
-              class="swiper-slide"
-              v-for="carousel in bannerList"
-              :key="carousel.id"
-            >
-              <img :src="carousel.imgUrl" />
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <!-- 轮播图的地方 -->
+        <Carousel :list="bannerList"></Carousel>
       </div>
       <div class="right">
         <div class="news">
@@ -96,8 +80,6 @@
 
 <script type='text/ecmascript-6'>
 import { mapState } from "vuex";
-// 引入轮播图的swiper库
-import Swiper from "swiper";
 
 export default {
   name: "ListContainer",
@@ -108,30 +90,7 @@ export default {
     ...mapState({
       bannerList: (state) => state.home.bannerList,
     }),
-  },
-  watch: {
-    bannerList: {
-      handler(newValue, oldValue) {
-        // 通过watch监听bannerList属性值的变化
-        this.$nextTick(() => {
-          var mySwiper = new Swiper(this.$refs.mySwiper, {
-            loop: true,
-            // 如果需要分页器
-            pagination: {
-              el: ".swiper-pagination",
-              //点击小球的时候也切换图片
-              clickable: true,
-            },
-            // 如果需要前进后退按钮
-            navigation: {
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            },
-          });
-        });
-      },
-    },
-  },
+  }
 };
 </script>
 

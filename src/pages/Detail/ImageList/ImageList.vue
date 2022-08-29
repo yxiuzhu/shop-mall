@@ -6,8 +6,11 @@
         v-for="(slide, index) in skuImageList"
         :key="slide.id"
       >
-        <img :src="slide.imgUrl" :class="{ active: currentIndex == index }" />
-        <!-- @click="changeCurrentIndex(index)" -->
+        <img
+          :src="slide.imgUrl"
+          :class="{ active: currentIndex == index }"
+          @click="changeCurrentIndex(index)"
+        />
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -41,6 +44,14 @@ export default {
           slidesPerGroup: 1,
         });
       });
+    },
+  },
+  methods: {
+    changeCurrentIndex(index) {
+      //修改响应式数据
+      this.currentIndex = index;
+      //通知兄弟组件：当前的索引值为几
+      this.$bus.$emit("getIndex", this.currentIndex);
     },
   },
 };

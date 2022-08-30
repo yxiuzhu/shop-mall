@@ -97,12 +97,25 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input
+                  autocomplete="off"
+                  class="itxt"
+                  v-model="skuNum"
+                  @change="changeSkuNum"
+                />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum > 1 ? skuNum-- : (skuNum = 1)"
+                  >-</a
+                >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <!-- 以前咱们的路由跳转：从A路由跳转到B路由，这里在加入购物车，进行路由跳转之前，发请求
+                    把你购买的产品的信息通过请求的形式通知服务器，服务器进行相应的存储
+                  -->
+                <a @click="addShopcar">加入购物车</a>
               </div>
             </div>
           </div>
@@ -341,26 +354,31 @@
 </template>
 
 <script>
-import ImageList from "./ImageList/ImageList";
-import Zoom from "./Zoom/Zoom";
-import { mapGetters } from "vuex";
+import ImageList from './ImageList/ImageList'
+import Zoom from './Zoom/Zoom'
+import { mapGetters } from 'vuex'
 export default {
-  name: "Detail",
-
+  name: 'Detail',
+  data() {
+    return {
+      //购买产品的个数
+      skuNum: 1,
+    }
+  },
   components: {
     ImageList,
     Zoom,
   },
   mounted() {
     //派发action获取产品详情的信息
-    this.$store.dispatch("getGoodInfo", this.$route.params.skuid);
+    this.$store.dispatch('getGoodInfo', this.$route.params.skuid)
   },
   computed: {
-    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
+    ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList']),
     //给子组件的数据
     skuImageList() {
       //如果服务器数据没有回来，skuInfo这个对象是空对象
-      return this.skuInfo.skuImageList || [];
+      return this.skuInfo.skuImageList || []
     },
   },
   methods: {
@@ -368,13 +386,31 @@ export default {
     changeActive(saleAttrValue, arr) {
       //遍历全部售卖属性值isChecked为零没有高亮了
       arr.forEach((item) => {
-        item.isChecked = 0;
-      });
+        item.isChecked = 0
+      })
       //点击的那个售卖属性值变为1
-      saleAttrValue.isChecked = 1;
+      saleAttrValue.isChecked = 1
+    },
+    //表单元素修改产品个数
+    changeSkuNum(event) {
+      //用户输入进来的文本 * 1
+      let value = event.target.value * 1
+      //如果用户输入进来的非法,出现NaN或者小于1
+      if (isNaN(value) || value < 1) {
+        this.skuNum = 1
+      } else {
+        //正常大于1【大于1整数不能出现小数】
+        this.skuNum = parseInt(value)
+      }
+    },
+    async addShopcar() {
+      this.$store.dispatch('addOrUpdateShopCart', {
+        skuId: this.$route.params.skuid,
+        skuNum: this.skuNum,
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -387,7 +423,7 @@ export default {
       padding: 9px 15px 9px 0;
 
       & > span + span:before {
-        content: "/\00a0";
+        content: '/\00a0';
         padding: 0 5px;
         color: #ccc;
       }

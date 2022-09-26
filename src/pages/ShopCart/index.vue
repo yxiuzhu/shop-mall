@@ -166,6 +166,28 @@ export default {
         alert(error.message)
       }
     },
+    //删除全部选中的产品
+    async deleteAllCheckedCart() {
+      try {
+        //派发一个action
+        await this.$store.dispatch('deleteAllCheckedCart')
+        //再发请求获取购物车列表
+        this.getData()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    //修改全部产品的选中状态
+    async updateAllCartChecked(event) {
+      try {
+        let isChecked = event.target.checked ? '1' : '0'
+        //派发action
+        await this.$store.dispatch('updateAllCartIsChecked', isChecked)
+        this.getData()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
   },
   computed: {
     ...mapGetters(['cartList']),

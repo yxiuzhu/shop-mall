@@ -95,6 +95,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
+// 在 css 中也可以使用 @代表别名，但是需要变成 ~@
 .list-container {
   width: 1200px;
   margin: 0 auto;

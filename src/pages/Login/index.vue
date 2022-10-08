@@ -90,7 +90,6 @@ export default {
     async userLogin() {
       try {
         //登录成功
-        console.log(this)
         const { phone, password } = this
         phone &&
           password &&

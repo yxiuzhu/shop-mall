@@ -7,6 +7,7 @@ import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
 import Trade from '@/pages/Trade'
+import Pay from '@/pages/Pay'
 
 export default [
   {
@@ -61,6 +62,12 @@ export default [
   {
     path: '/trade',
     component: Trade,
+    meta: { show: true },
+  },
+  // 提交订单
+  {
+    path: '/pay',
+    component: Pay,
     meta: { show: true },
   },
   // 重定向：设置默认访问的路由地址

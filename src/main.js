@@ -5,13 +5,17 @@ import App from './App.vue'
 import TypeNav from '@/components/TypeNav'
 import Carousel from '@/components/Carousel'
 import Pagination from '@/components/Pagination'
-
+import { Button, MessageBox } from 'element-ui'
 // import Pagination from '@/components/Pagination'
 //全局组件：第一个参数 组件名字  第二个参数：那个组件
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carousel.name, Carousel)
 Vue.component(Pagination.name, Pagination)
-
+// ElementUI注册全局组件 方式一
+Vue.component(Button.name, Button)
+// ElementUI注册全局组件 方式二 挂在原型上
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
 // 引入MockServer.js的mock数据
 import '@/mock/mockServe'
 // 引入swiper的样式

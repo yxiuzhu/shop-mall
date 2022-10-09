@@ -57,7 +57,7 @@ export default [
     component: ShopCart,
     meta: { show: true },
   },
-  // 结算页面
+  // 交易结算页面
   {
     path: '/trade',
     component: Trade,

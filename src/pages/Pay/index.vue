@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import QRCode from 'qrcode'
 export default {
   name: 'Pay',
   data() {
@@ -135,17 +136,17 @@ export default {
         confirmButtonText: '已支付成功',
         //右上角的叉子没了
         showClose: false,
-        //关闭弹出框的配置值
+        // 组件的配置函数：关闭弹出框的配置值
         beforeClose: (type, instance, done) => {
-          //type:区分取消|确定按钮
+          //type:区分取消|确定按钮  cancel | confirm
           //instance：当前组件实例
           //done:关闭弹出框的方法
           if (type == 'cancel') {
-            alert('请联系管理员豪哥')
+            alert('请联系管理员——y_xiuzhu')
             //清除定时器
             clearInterval(this.timer)
             this.timer = null
-            //关闭弹出框
+            //组件的配置函数：关闭弹出框的方法
             done()
           } else {
             //判断是否真的支付了
@@ -161,7 +162,7 @@ export default {
       })
       //你需要知道支付成功|失败
       //支付成功，路由的跳转，如果支付失败，提示信息
-      //定时器没有，开启一个新的定时器
+      //定时器没有，开启一个新的定时器  长轮询，一直获取支付状态
       if (!this.timer) {
         this.timer = setInterval(async () => {
           //发请求获取用户支付状态

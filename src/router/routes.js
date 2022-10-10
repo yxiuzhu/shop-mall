@@ -9,6 +9,10 @@ import ShopCart from '@/pages/ShopCart'
 import Trade from '@/pages/Trade'
 import Pay from '@/pages/Pay'
 import PaySuccess from '@/pages/PaySuccess'
+import Center from '@/pages/Center'
+// 引入二级路由
+import GroupOrder from '@/pages/Center/groupOrder'
+import MyOrder from '@/pages/Center/myOrder'
 
 export default [
   {
@@ -71,11 +75,31 @@ export default [
     component: Pay,
     meta: { show: true },
   },
-  // 提交订单
+  // 支付成功
   {
     path: '/paysuccess',
     component: PaySuccess,
     meta: { show: true },
+  },
+  // 订单中心
+  {
+    path: '/center',
+    component: Center,
+    children: [
+      {
+        // path: '/center/myorder',
+        path: 'myorder',
+        component: MyOrder,
+      },
+      {
+        path: 'grouporder',
+        component: GroupOrder,
+      },
+      {
+        path: '',
+        redirect: 'myorder',
+      },
+    ],
   },
   // 重定向：设置默认访问的路由地址
   {

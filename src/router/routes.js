@@ -1,6 +1,7 @@
 // 引入路由组件
-import Home from '@/pages/Home'
-import Search from '@/pages/Search'
+// import Home from '@/pages/Home' 路由懒加载
+// import Search from '@/pages/Search'  路由懒加载
+const Search = () => import('@/pages/Search')
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Detail from '@/pages/Detail'
@@ -15,9 +16,11 @@ import GroupOrder from '@/pages/Center/groupOrder'
 import MyOrder from '@/pages/Center/myOrder'
 
 export default [
+  // 首页
   {
     path: '/home',
-    component: Home,
+    // 路由懒加载
+    component: () => import('@/pages/Home'),
     meta: { show: true },
   },
   // 搜索页
@@ -90,7 +93,7 @@ export default [
       }
     },
   },
-  // 订单中心
+  // 订单中心 - 二级路由
   {
     path: '/center',
     component: Center,
